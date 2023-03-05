@@ -101,7 +101,7 @@ class RegisterController extends Controller
             $validation['physician_name'] = 'required|string|max:191';
             $validation['physician_license_number'] = 'required|max:191';
             $validation['physician_npi_number'] = 'required|max:191';
-            $validation['fax'] = 'required|regex:/^[01]?[- .]?([2-9]\d{2})?[- .]?\d{3}[- .]?\d{4}$/';
+//             $validation['fax'] = 'required|regex:/^[01]?[- .]?([2-9]\d{2})?[- .]?\d{3}[- .]?\d{4}$/';
             $role = 1;
         }
 
