@@ -163,7 +163,7 @@ class RegisterController extends Controller
                     'token' => $token
                 ];
                 $body = str_replace("{{LINK_VERIFY}}", route('verifyAccount').'?'.http_build_query($paramGet), $body);
-                event(new SendMailProcessed($request->email,$mailConfig->subject,$body));
+//                 event(new SendMailProcessed($request->email,$mailConfig->subject,$body));
             }
             if(isset($request->is_doctor_register)) {
                 $mailConfig = MailConfig::where('code','=','new_doctor')->first();
@@ -180,7 +180,7 @@ class RegisterController extends Controller
                     $body = str_replace("{{BLOOD_DRAW_SUPPLIES}}", $request->blood_draw  ? "YES" : "NO", $body);
                     $body = str_replace("{{ANY_SPECIAL_REQUEST}}", $request->special_requests, $body);
                     $body = str_replace("{{LINK_CUSTOMER}}", route('voyager.customers.show', $customer->id), $body);
-                    event(new SendMailProcessed(setting('site.email_receive_notification'),$mailConfig->subject,$body));
+//                     event(new SendMailProcessed(setting('site.email_receive_notification'),$mailConfig->subject,$body));
                 }
             }
             DB::commit();
