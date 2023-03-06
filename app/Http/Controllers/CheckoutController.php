@@ -240,16 +240,12 @@ class CheckoutController extends Controller
         $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->with('details','customer','country')->firstOrFail();
         
         // if(!empty(request()->get("sendmail"))){
-        // if(!empty($tests)){
-
-        
+        // if(!empty($tests)){       
 
             $message = 'You have received an order from ' . $order->firstName.' '.$order->lastName . '. Their order is as follows:';
             $sendAdmin = true;
             $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
             event(new SendMailProcessed(setting('site.email_receive_notification'),'New Order #'.$order->id,$bodyRender));
-
-            dd($tests);
         
             $mailConfig = MailConfig::where('code','order_confirmation')->first();
             $message = '';
@@ -262,6 +258,8 @@ class CheckoutController extends Controller
             if($order->email != user()->email){
                 event(new SendMailProcessed(user()->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
             }
+        
+            dd($tests);
         
         return view('front.cart.checkout-success',compact('order'));
     }
