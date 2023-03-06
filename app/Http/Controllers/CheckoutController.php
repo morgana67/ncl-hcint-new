@@ -203,8 +203,11 @@ class CheckoutController extends Controller
             }
             DB::commit();
 
+            $serializedTests = serialize($tests);
+            dd($serializedTests);
+
             Cart::destroy();
-            return redirect()->route('order-success',['id' => $order->id,'sendmail' => 1, 'tests' => serialize($tests)]);
+            return redirect()->route('order-success',['id' => $order->id,'sendmail' => 1]);
         }catch(\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->withInput($request->all())->withErrors($exception->getMessage());
