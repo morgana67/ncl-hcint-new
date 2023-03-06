@@ -208,7 +208,7 @@ class CheckoutController extends Controller
             Cart::destroy();
             // return redirect()->route('order-success',['id' => $order->id,'sendmail' => 1]);
             $orderSuccess = $this->orderSuccess($order->id, $tests);
-            return;
+            return view('front.cart.checkout-success',compact('order'));
         }catch(\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->withInput($request->all())->withErrors($exception->getMessage());
@@ -238,7 +238,9 @@ class CheckoutController extends Controller
 
     public function orderSuccess($id, $tests) {
         $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->with('details','customer','country')->firstOrFail();
-        if(!empty(request()->get("sendmail"))){
+        
+        // if(!empty(request()->get("sendmail"))){
+        if(!empty($tests)){
             $message = 'You have received an order from ' . $order->firstName.' '.$order->lastName . '. Their order is as follows:';
             $sendAdmin = true;
             $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
