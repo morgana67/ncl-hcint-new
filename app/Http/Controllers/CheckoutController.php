@@ -242,13 +242,15 @@ class CheckoutController extends Controller
         // if(!empty(request()->get("sendmail"))){
         // if(!empty($tests)){
 
-        dd($tests);
+        
 
             $message = 'You have received an order from ' . $order->firstName.' '.$order->lastName . '. Their order is as follows:';
             $sendAdmin = true;
             $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
             event(new SendMailProcessed(setting('site.email_receive_notification'),'New Order #'.$order->id,$bodyRender));
 
+            dd($tests);
+        
             $mailConfig = MailConfig::where('code','order_confirmation')->first();
             $message = '';
             $sendAdmin = false;
