@@ -292,7 +292,7 @@ class CheckoutController extends Controller
         return response()->json([
             'cart' => Cart::content(),
             'cart_total' => Cart::total(),
-        ],200);
+        ],200); 
     }
 
 }
