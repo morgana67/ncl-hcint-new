@@ -238,8 +238,9 @@ class CheckoutController extends Controller
 
     public function orderSuccess($id, $tests) {
         $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->with('details','customer','country')->firstOrFail();
-        dd($tests);
-        if(!empty(request()->get("sendmail"))){
+        
+        // if(!empty(request()->get("sendmail"))){
+        if(!empty($tests)){
             $message = 'You have received an order from ' . $order->firstName.' '.$order->lastName . '. Their order is as follows:';
             $sendAdmin = true;
             $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
