@@ -259,8 +259,6 @@ class CheckoutController extends Controller
                 event(new SendMailProcessed(user()->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
             }
         
-            dd($tests);
-        
         return view('front.cart.checkout-success',compact('order'));
     }
 
