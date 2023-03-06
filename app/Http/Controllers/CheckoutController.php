@@ -242,7 +242,7 @@ class CheckoutController extends Controller
             $message = 'You have received an order from ' . $order->firstName.' '.$order->lastName . '. Their order is as follows:';
             $sendAdmin = true;
             $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
-//             event(new SendMailProcessed(setting('site.email_receive_notification'),'New Order #'.$order->id,$bodyRender));
+            event(new SendMailProcessed(setting('site.email_receive_notification'),'New Order #'.$order->id,$bodyRender));
 
             $mailConfig = MailConfig::where('code','order_confirmation')->first();
             $message = '';
@@ -251,9 +251,9 @@ class CheckoutController extends Controller
             $body =  Functions::replaceBodyEmail($mailConfig->body,user());
             $body = str_replace("{{ORDER_ID}}", $order->id , $body);
             $body = str_replace("{{ORDERINFO}}", $bodyRender , $body);
-            // event(new SendMailProcessed($order->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
+            event(new SendMailProcessed($order->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
             if($order->email != user()->email){
-                // event(new SendMailProcessed(user()->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
+                event(new SendMailProcessed(user()->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
             }
         }
         return view('front.cart.checkout-success',compact('order'));
