@@ -179,9 +179,7 @@ class CheckoutController extends Controller
 
                         ]
                     ]
-                ];
-
-                dd($dataPwn);
+                ];                
 
                 // $response = $this->curl(json_encode($dataPwn));
                
@@ -201,10 +199,10 @@ class CheckoutController extends Controller
                 $order->transaction_id = $charge->id;
                 $order->pwh_order_id =  null;
                 $order->pwh_order_link =  null;
-                $order->save();
-                
+                $order->save();                
             }
             DB::commit();
+
             Cart::destroy();
             return redirect()->route('order-success',['id' => $order->id,'sendmail' => 1]);
         }catch(\Exception $exception) {
@@ -232,10 +230,13 @@ class CheckoutController extends Controller
         // $server_output = curl_exec ($ch);
         // curl_close ($ch);
         // return json_decode($server_output);
-    }
+    }    
 
     public function orderSuccess($id) {
         $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->with('details','customer','country')->firstOrFail();
+        
+        dd($order);
+        
         if(!empty(request()->get("sendmail"))){
             $message = 'You have received an order from ' . $order->firstName.' '.$order->lastName . '. Their order is as follows:';
             $sendAdmin = true;
@@ -249,7 +250,6 @@ class CheckoutController extends Controller
             $body =  Functions::replaceBodyEmail($mailConfig->body,user());
             $body = str_replace("{{ORDER_ID}}", $order->id , $body);
             $body = str_replace("{{ORDERINFO}}", $bodyRender , $body);
-            dd('order email: '.$order->email.'   user email: '.user()->email);
             // event(new SendMailProcessed($order->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
             if($order->email != user()->email){
                 // event(new SendMailProcessed(user()->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
