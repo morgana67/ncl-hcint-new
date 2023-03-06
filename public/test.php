@@ -30,27 +30,27 @@ try {
         "x-newcentury-date: {$dateFormat}",
         "Content-Type: text/xml",
     ];
-    $ch = curl_init($url);
+    // $ch = curl_init($url);
 //    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 //    curl_setopt($ch, CURLOPT_POSTFIELDS, "{$xmlRequest}");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    $response = curl_exec($ch);
-    if(empty(json_decode($response, TRUE))) {
-        $response = simplexml_load_string($response);
-        $response = json_encode($response);
-        $response = json_decode($response, TRUE);
-        echo '<pre>';
-        print_r($response['location']);
-        echo '</pre>';
-    } else {
-        echo '<pre>';
-        print_r("Failled to call.");
-        echo '</pre>';
-    }
+    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    // $response = curl_exec($ch);
+    // if(empty(json_decode($response, TRUE))) {
+    //     $response = simplexml_load_string($response);
+    //     $response = json_encode($response);
+    //     $response = json_decode($response, TRUE);
+    //     echo '<pre>';
+    //     print_r($response['location']);
+    //     echo '</pre>';
+    // } else {
+    //     echo '<pre>';
+    //     print_r("Failled to call.");
+    //     echo '</pre>';
+    // }
 
 
-    curl_close($ch);
+    // curl_close($ch);
 
 
 } catch (\Exception $e) {
