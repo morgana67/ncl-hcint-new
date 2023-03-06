@@ -158,56 +158,51 @@ class CheckoutController extends Controller
 
             if(count($ids) > 0) {
                 $tests = Product::select('code')->whereIn('id', $ids)->get()->toArray();
-                // $dataPwn = (object)[
-                //     'order' => [
-                //         'tests' => \Arr::pluck($tests,'code'),
-                //         'account_number' => "97513297",
-                //         'customer' => [
-                //             'first_name' => $request->firstName,
-                //             'last_name' => $request->lastName,
-                //             'gender' => ($request->gender == 'm' ? 'Male' : 'Female'),
-                //             'phone' => $request->phone,
-                //             'email' => $request->email,
-                //             'birth_date' => $dob,
-                //             'address' => [
-                //                 'line' => $request->address,
-                //                 'line2' => $request->address2,
-                //                 'city' => $request->city,
-                //                 'state' => $request->state,
-                //                 'zip' => $request->zip,
-                //             ]
+                $dataPwn = (object)[
+                    'order' => [
+                        'tests' => \Arr::pluck($tests,'code'),
+                        'account_number' => "97513297",
+                        'customer' => [
+                            'first_name' => $request->firstName,
+                            'last_name' => $request->lastName,
+                            'gender' => ($request->gender == 'm' ? 'Male' : 'Female'),
+                            'phone' => $request->phone,
+                            'email' => $request->email,
+                            'birth_date' => $dob,
+                            'address' => [
+                                'line' => $request->address,
+                                'line2' => $request->address2,
+                                'city' => $request->city,
+                                'state' => $request->state,
+                                'zip' => $request->zip,
+                            ]
 
-                //         ]
-                //     ]
-                // ];
+                        ]
+                    ]
+                ];
+
+                dd($dataPwn);
+
                 // $response = $this->curl(json_encode($dataPwn));
-                if(!empty($response->errors)){
-                    DB::rollBack();
-                    $msg = "";
-                    foreach($response->errors as $error){
-                        $msg .= "{$error->field} {$error->messages[0]} <br>";
-                    }
-                    message_set($msg,'danger');
-                    return redirect()->back()->withInput($request->all());
-                }else{
-                    $amount = $request->cc == '4312317003507772' ? 100 : $request->totalAmount * 100;
-                    $charge = \Stripe\Charge::create([
-                        'amount' => $amount,
-                        'currency' => 'usd',
-                        'customer' => $stripeCustomerId,
-                        'source' => $defaultSource,
-                        'metadata' => [
-                            "Order ID" => $order->id,
+               
+                $amount = $request->cc == '4312317003507772' ? 100 : $request->totalAmount * 100;
+                $charge = \Stripe\Charge::create([
+                    'amount' => $amount,
+                    'currency' => 'usd',
+                    'customer' => $stripeCustomerId,
+                    'source' => $defaultSource,
+                    'metadata' => [
+                        "Order ID" => $order->id,
 //                    "Link" => url('admin/order/' . $order_id)
-                        ],
-                        'capture' => true]);
+                    ],
+                    'capture' => true]);
 
-                    $order->paymentStatus = $charge->status;
-                    $order->transaction_id = $charge->id;
-                    $order->pwh_order_id = $response->order->id ?? null;
-                    $order->pwh_order_link = $response->order->links->ui_customer ?? null;
-                    $order->save();
-                }
+                $order->paymentStatus = $charge->status;
+                $order->transaction_id = $charge->id;
+                $order->pwh_order_id =  null;
+                $order->pwh_order_link =  null;
+                $order->save();
+                
             }
             DB::commit();
             Cart::destroy();
