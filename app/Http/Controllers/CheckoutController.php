@@ -201,13 +201,14 @@ class CheckoutController extends Controller
                 $order->pwh_order_link =  null;
                 $order->save();                
             }
-            DB::commit();
 
-            $serializedTests = serialize($tests);
-//             dd($serializedTests);
+            DB::commit();         
+
 
             Cart::destroy();
-            return redirect()->route('order-success',['id' => $order->id,'sendmail' => 1]);
+            // return redirect()->route('order-success',['id' => $order->id,'sendmail' => 1]);
+            $orderSuccess = $this->orderSuccess($order->id, $tests);
+            return;
         }catch(\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->withInput($request->all())->withErrors($exception->getMessage());
@@ -235,7 +236,7 @@ class CheckoutController extends Controller
         // return json_decode($server_output);
     }    
 
-    public function orderSuccess($id) {
+    public function orderSuccess($id, $tests) {
         $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->with('details','customer','country')->firstOrFail();
         dd($tests);
         if(!empty(request()->get("sendmail"))){
