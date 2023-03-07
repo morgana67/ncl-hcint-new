@@ -43,6 +43,7 @@ class SendMailNotification
         // $headers .= 'Cc: myboss@example.com' . "\r\n";
         //return mail($email, $subject, $body, $headers);
 //        for ($i = 0;$i < 10;$i++){
+        dd('sending email now.');
             Mail::send('emails.template', $data, function($message) use ($data) {
                 $message->to($data['to'])->subject($data['subject']);
             });
