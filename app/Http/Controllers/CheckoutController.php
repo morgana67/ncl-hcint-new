@@ -157,6 +157,7 @@ class CheckoutController extends Controller
             OrderDetail::insert($orderDetail);
 
             if(count($ids) > 0) {
+
                 $tests = Product::select('code', 'name')->whereIn('id', $ids)->get()->toArray();
                 $dataPwn = (object)[
                     'order' => [
@@ -181,17 +182,27 @@ class CheckoutController extends Controller
                     ]
                 ];                
 
+
                 // $response = $this->curl(json_encode($dataPwn));
-               
-                $amount = $request->cc == '4312317003507772' ? 100 : $request->totalAmount * 100;
-                $charge = \Stripe\Charge::create([
-                    'amount' => $amount,
-                    'currency' => 'usd',
-                    'customer' => $stripeCustomerId,
-                    'source' => $defaultSource,
-                    'metadata' => [
-                        "Order ID" => $order->id,
+                if(!empty($response->errors)){
+                    DB::rollBack();
+                    $msg = "";
+                    foreach($response->errors as $error){
+                        $msg .= "{$error->field} {$error->messages[0]} <br>";
+                    }
+                    message_set($msg,'danger');
+                    return redirect()->back()->withInput($request->all());
+                }else{
+                    $amount = $request->cc == '4312317003507772' ? 100 : $request->totalAmount * 100;
+                    $charge = \Stripe\Charge::create([
+                        'amount' => $amount,
+                        'currency' => 'usd',
+                        'customer' => $stripeCustomerId,
+                        'source' => $defaultSource,
+                        'metadata' => [
+                            "Order ID" => $order->id,
 //                    "Link" => url('admin/order/' . $order_id)
+
                     ],
                     'capture' => true]);
 
@@ -200,6 +211,8 @@ class CheckoutController extends Controller
                 $order->pwh_order_id =  null;
                 $order->pwh_order_link =  null;
                 $order->save();                
+
+                        
             }
 
             DB::commit();         
@@ -246,7 +259,7 @@ class CheckoutController extends Controller
             $sendAdmin = true;
             $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
             event(new SendMailProcessed(setting('site.email_receive_notification'),'New Order #'.$order->id,$bodyRender));
-        
+
             $mailConfig = MailConfig::where('code','order_confirmation')->first();
             $message = '';
             $sendAdmin = false;
