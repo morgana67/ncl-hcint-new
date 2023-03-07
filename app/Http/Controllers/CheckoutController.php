@@ -72,7 +72,7 @@ class CheckoutController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator->errors());
         };
         DB::beginTransaction();
-        try {
+        try { //open try/catc
             $token = \Stripe\Token::create([
                 'card' => [
                     'number' => $request->cc,
@@ -86,7 +86,7 @@ class CheckoutController extends Controller
             $d = $request->date;
             $dob = "{$y}-{$m}-{$d}";
 
-            if (isset(user()->stripe_customer_id)) {
+            if (isset(user()->stripe_customer_id)) { //open is ieest
                 $stripeCustomerId = user()->stripe_customer_id;
                 $customer = \Stripe\Customer::update($stripeCustomerId, array('source' => $token['id']));
             }else{
@@ -99,7 +99,7 @@ class CheckoutController extends Controller
                 ]]);
                 Customer::where('id',user()->id)->update(['stripe_customer_id' => $customer['id']]);
                 $stripeCustomerId = $customer['id'];
-            }
+            } //close if isset
             $defaultSource = $customer['default_source'];
 
             $mandatoryProducts = Product::select('id','price','sale_price')->active()->additionalType()->where('mandatory',1)->get();
@@ -126,7 +126,7 @@ class CheckoutController extends Controller
 
             $ids = array();
             $orderDetail = array();
-            foreach (Cart::content() as $product){
+            foreach (Cart::content() as $product){  //open foreach
                 $orderDetail[] = [
                     'order_id' => $order->id,
                     'product_id' => $product->id,
@@ -141,9 +141,9 @@ class CheckoutController extends Controller
                 } else {
                     $ids[] = $product->id;
                 }
-            }
+            } //close foreach
 
-            foreach ($mandatoryProducts as $mandatoryProduct){
+            foreach ($mandatoryProducts as $mandatoryProduct){ //open foreach
                 $price = !empty($mandatoryProduct->sale_price) ? floatval($mandatoryProduct->sale_price) : floatval($mandatoryProduct->price);
                 $orderDetail[] = [
                     'order_id' => $order->id,
@@ -151,12 +151,12 @@ class CheckoutController extends Controller
                     'price' => $price,
                     'quantity' => 1,
                 ];
-            }
+            } //close foreach
 
 
             OrderDetail::insert($orderDetail);
 
-            if(count($ids) > 0) {
+            if(count($ids) > 0) {  //open if
 
                 $tests = Product::select('code', 'name')->whereIn('id', $ids)->get()->toArray();
                 $dataPwn = (object)[
@@ -184,15 +184,15 @@ class CheckoutController extends Controller
 
 
                 // $response = $this->curl(json_encode($dataPwn));
-                if(!empty($response->errors)){
+                if(!empty($response->errors)){  //open if2
                     DB::rollBack();
                     $msg = "";
-                    foreach($response->errors as $error){
+                    foreach($response->errors as $error){ //open foreach
                         $msg .= "{$error->field} {$error->messages[0]} <br>";
-                    }
+                    } //close foreach
                     message_set($msg,'danger');
                     return redirect()->back()->withInput($request->all());
-                }else{
+                }else{  //open else for if2
                     $amount = $request->cc == '4312317003507772' ? 100 : $request->totalAmount * 100;
                     $charge = \Stripe\Charge::create([
                         'amount' => $amount,
@@ -213,15 +213,15 @@ class CheckoutController extends Controller
                 $order->save();                
 
                         
-            }
+            } //close else anfd if2
 
-            DB::commit();         
-
+            DB::commit(); 
 
             Cart::destroy();
             // return redirect()->route('order-success',['id' => $order->id,'sendmail' => 1]);
             $orderSuccess = $this->orderSuccess($order->id, $tests);
             return view('front.cart.checkout-success',compact('order'));
+         }controll
         }catch(\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->withInput($request->all())->withErrors($exception->getMessage());
