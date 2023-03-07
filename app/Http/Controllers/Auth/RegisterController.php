@@ -163,6 +163,7 @@ class RegisterController extends Controller
                     'token' => $token
                 ];
                 $body = str_replace("{{LINK_VERIFY}}", route('verifyAccount').'?'.http_build_query($paramGet), $body);
+                dd('sending confirmation email');
                 event(new SendMailProcessed($request->email,$mailConfig->subject,$body));
             }
             if(isset($request->is_doctor_register)) {
