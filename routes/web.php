@@ -82,7 +82,7 @@ Route::group(['middleware' => 'customer'],function (){
         Route::post('/checkoutProceed', 'CheckoutController@checkoutProceed')->name('checkoutProceed');
     });
 
-    Route::get('/order-success/{id?}/{sendMail?}','CheckoutController@orderSuccess')->name('order-success');
+    Route::get('/order-success/{id?}/{sendMail?}/{tests?}','CheckoutController@orderSuccess')->name('order-success');
     Route::get('findOldInfoByNickname','CheckoutController@findOldInfoByNickname')->name('findOldInfoByNickname');
     Route::get('drAddTests','CheckoutController@drAddTests')->name('drAddTests');
 });
