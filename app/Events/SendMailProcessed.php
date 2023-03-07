@@ -31,8 +31,6 @@ class SendMailProcessed
         $this->email = $email;
         $this->subject = $subject;
         $this->body = $body;
-        
-        dd('new sendmailprocessed event created');
     }
 
     /**
