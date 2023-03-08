@@ -19,7 +19,7 @@
     </section>
     <section class="bottom-area bg-gray white text-center clrlist p10">
         <div class="container">
-        <span>{{setting('site.copy_right')}}</span>
+            <span>&copy; @php echo date('Y'); @endphp New Century Labs All rights reserved.</span>
             <div class="bottom__links clrlist listdvr">
                 <ul>
                     <li><a href="{{route('privacy')}}">Privacy</a></li>

@@ -157,29 +157,32 @@ class CheckoutController extends Controller
             OrderDetail::insert($orderDetail);
 
             if(count($ids) > 0) {
-                $tests = Product::select('code')->whereIn('id', $ids)->get()->toArray();
-                // $dataPwn = (object)[
-                //     'order' => [
-                //         'tests' => \Arr::pluck($tests,'code'),
-                //         'account_number' => "97513297",
-                //         'customer' => [
-                //             'first_name' => $request->firstName,
-                //             'last_name' => $request->lastName,
-                //             'gender' => ($request->gender == 'm' ? 'Male' : 'Female'),
-                //             'phone' => $request->phone,
-                //             'email' => $request->email,
-                //             'birth_date' => $dob,
-                //             'address' => [
-                //                 'line' => $request->address,
-                //                 'line2' => $request->address2,
-                //                 'city' => $request->city,
-                //                 'state' => $request->state,
-                //                 'zip' => $request->zip,
-                //             ]
 
-                //         ]
-                //     ]
-                // ];
+                $tests = Product::select('code', 'name')->whereIn('id', $ids)->get()->toArray();
+                $dataPwn = (object)[
+                    'order' => [
+                        'tests' => \Arr::pluck($tests,'code'),
+                        'account_number' => "97513297",
+                        'customer' => [
+                            'first_name' => $request->firstName,
+                            'last_name' => $request->lastName,
+                            'gender' => ($request->gender == 'm' ? 'Male' : 'Female'),
+                            'phone' => $request->phone,
+                            'email' => $request->email,
+                            'birth_date' => $dob,
+                            'address' => [
+                                'line' => $request->address,
+                                'line2' => $request->address2,
+                                'city' => $request->city,
+                                'state' => $request->state,
+                                'zip' => $request->zip,
+                            ]
+
+                        ]
+                    ]
+                ];                
+
+
                 // $response = $this->curl(json_encode($dataPwn));
                 if(!empty($response->errors)){
                     DB::rollBack();
@@ -199,19 +202,27 @@ class CheckoutController extends Controller
                         'metadata' => [
                             "Order ID" => $order->id,
 //                    "Link" => url('admin/order/' . $order_id)
-                        ],
-                        'capture' => true]);
 
-                    $order->paymentStatus = $charge->status;
-                    $order->transaction_id = $charge->id;
-                    $order->pwh_order_id = $response->order->id ?? null;
-                    $order->pwh_order_link = $response->order->links->ui_customer ?? null;
-                    $order->save();
-                }
+                    ],
+                    'capture' => true]);
+
+                $order->paymentStatus = $charge->status;
+                $order->transaction_id = $charge->id;
+                $order->pwh_order_id =  null;
+                $order->pwh_order_link =  null;
+                $order->save();                
+
+                        
             }
-            DB::commit();
+
+            DB::commit();         
+
+
             Cart::destroy();
-            return redirect()->route('order-success',['id' => $order->id,'sendmail' => 1]);
+            // return redirect()->route('order-success',['id' => $order->id,'sendmail' => 1]);
+            $orderSuccess = $this->orderSuccess($order->id, $tests);
+            return view('front.cart.checkout-success',compact('order'));
+            }
         }catch(\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->withInput($request->all())->withErrors($exception->getMessage());
@@ -237,11 +248,14 @@ class CheckoutController extends Controller
         // $server_output = curl_exec ($ch);
         // curl_close ($ch);
         // return json_decode($server_output);
-    }
+    }    
 
-    public function orderSuccess($id) {
+    public function orderSuccess($id, $tests) {
         $order = Order::where('id',$id)->where('customer_id',user()->getAuthIdentifier())->with('details','customer','country')->firstOrFail();
-        if(!empty(request()->get("sendmail"))){
+        
+        // if(!empty(request()->get("sendmail"))){
+        // if(!empty($tests)){       
+
             $message = 'You have received an order from ' . $order->firstName.' '.$order->lastName . '. Their order is as follows:';
             $sendAdmin = true;
             $bodyRender = view('emails.mail-order',compact('order','message','sendAdmin'))->render();
@@ -258,7 +272,7 @@ class CheckoutController extends Controller
             if($order->email != user()->email){
                 event(new SendMailProcessed(user()->email,str_replace("{{ORDER_ID}}", $order->id , $mailConfig->subject),$body));
             }
-        }
+        
         return view('front.cart.checkout-success',compact('order'));
     }
 
@@ -292,7 +306,7 @@ class CheckoutController extends Controller
         return response()->json([
             'cart' => Cart::content(),
             'cart_total' => Cart::total(),
-        ],200);
+        ],200); 
     }
 
 }
