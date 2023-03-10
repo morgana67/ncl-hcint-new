@@ -79,6 +79,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('storage/settings/January2021') => storage_path('app/public/settings/January2021'),
     ],
 
 ];
