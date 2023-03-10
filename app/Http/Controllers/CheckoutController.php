@@ -222,6 +222,7 @@ class CheckoutController extends Controller
             // return redirect()->route('order-success',['id' => $order->id,'sendmail' => 1]);
             $orderSuccess = $this->orderSuccess($order->id, $tests);
             return view('front.cart.checkout-success',compact('order'));
+            }
         }catch(\Exception $exception) {
             DB::rollBack();
             return redirect()->back()->withInput($request->all())->withErrors($exception->getMessage());
