@@ -142,7 +142,7 @@ class RegisterController extends Controller
                 // create and store stripe customer id
                 $token = \Stripe\Token::create([
                     'card' => [
-                        'number' => $request->dr_cc,
+                        'number' => $request->dr_cc_num,
                         'exp_month' => $request->dr_expMonth,
                         'exp_year' => $request->dr_expYear,
                         'cvc' => $request->dr_cvc,
