@@ -214,11 +214,10 @@
                             Payment Information
                         </h3> --}}
                         <div class="form-group" id="cc-group">
-                            <label for="cc">Credit card number:</label>
+                            <label for="cc">Credit card number:<span class="require-label">*</span></label>
                             <input placeholder="Credit Card Number" class="form-control" required="required" data-stripe="number"
                                    data-parsley-type="number" maxlength="16" data-parsley-trigger="change focusout"
                                    data-parsley-class-handler="#cc-group" name="dr-cc-num" type="text" id="cc" value="{{old('cc','')}}">
-                            <span class="require"></span>
                         </div>
 
                         <div class="form-group" id="ccv-group">
@@ -226,7 +225,6 @@
                             <input placeholder="Credit Card CVC" class="form-control" required="required" data-stripe="cvc" data-parsley-type="number"
                                    data-parsley-trigger="change focusout" maxlength="4"
                                    data-parsley-class-handler="#ccv-group" name="dr-cvc" type="text" value="{{old('cvc','')}}">
-                            <span class="require"></span>
                         </div>
 
                         <div class="row">
