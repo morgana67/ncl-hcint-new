@@ -21,7 +21,7 @@ class AddDrCcInfoColsToCustomers extends Migration
 
         if (!Schema::hasColumn('customers', 'dr-cvc')) {
             Schema::table('customers', function (Blueprint $table) {
-                $table->string('dr-cvc-num');
+                $table->string('dr-cvc');
             });
         }
 
