@@ -136,7 +136,7 @@ class RegisterController extends Controller
                 $dataCustomer['dr-expYear'] = $request->dr_expYear;
 
                 //TEST:  SET STRIPE API KEY - REMOVE
-                \Stripe\Stripe::setApiKey('sk_test_51MicFxL4tpEt7VWVrTSHwmaj5LGInlwWelKDbdV8IPpqoT0pgB7aqZRhTh0P1Xq4P0HpxhI86x9yvLF6Jrv5Wcfo00wTyxSm0z');
+                \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_SK'));
                 //TEST:  SET STRIPE API KEY - REMOVE
 
                 // create and store stripe customer id
