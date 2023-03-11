@@ -204,6 +204,61 @@
                     <div class="form-group col-sm-12">
                         <textarea class="form-control" style="min-height: 40px" placeholder="Do you have any special requests?" name="special_requests">{{old('special_request')}}</textarea>
                     </div>
+
+                    {{-- Add CC info card to doctor regisatration [store CC info for providers] --}}
+
+
+                    <div class="payment-info col-sm-12  fom-shad mb30">
+                        <h3>
+                            <mark>3</mark>
+                            Payment Information
+                        </h3>
+                        <div class="form-group" id="cc-group">
+                            <label for="cc">Credit card number:</label>
+                            <input class="form-control" required="required" data-stripe="number"
+                                   data-parsley-type="number" maxlength="16" data-parsley-trigger="change focusout"
+                                   data-parsley-class-handler="#cc-group" name="cc" type="text" id="cc" value="{{old('cc','')}}">
+
+                        </div>
+
+                        <div class="form-group" id="ccv-group">
+                            <label for="CVC">CVC (3 or 4 digit number):</label>
+                            <input class="form-control" required="required" data-stripe="cvc" data-parsley-type="number"
+                                   data-parsley-trigger="change focusout" maxlength="4"
+                                   data-parsley-class-handler="#ccv-group" name="cvc" type="text" value="{{old('cvc','')}}">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group" id="exp-m-group">
+                                    <label for="expMonth">Ex. Month</label>
+                                    <select class="form-control" required="required" data-stripe="exp-month" id="expMonth" name="expMonth">
+                                        @for($i = 1; $i <= 12; $i++ )
+                                            <option {{old('expMonth',1) == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="form-group" id="exp-y-group">
+                                    <label for="expYear">Ex. Year</label>
+                                    <select class="form-control" required="required" data-stripe="exp-year" id="expYear" name="expYear">
+                                        @php($year = \Carbon\Carbon::now()->year)
+                                        @for($i = $year; $i <= $year+10;$i++)
+                                            <option {{old('expYear',1) == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+
+                    {{-- END: Add CC info card to doctor regisatration [store CC info for providers] --}}
+
+
                     <div class="form-group col-sm-12">
                         <small style="color: #31708f">
                             <strong>Your account will be open within the next 5 business days!</strong>
