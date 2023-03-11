@@ -134,6 +134,27 @@ class RegisterController extends Controller
                 $dataCustomer['dr-cvc'] = $request->dr_cvc;
                 $dataCustomer['dr-expMonth'] = $request->dr_expMonth;
                 $dataCustomer['dr-expYear'] = $request->dr_expYear;
+
+                // create and store stripe customer id
+                $token = \Stripe\Token::create([
+                    'card' => [
+                        'number' => $request->dr_cc,
+                        'exp_month' => $request->dr_expMonth,
+                        'exp_year' => $request->dr_expYear,
+                        'cvc' => $request->dr_cvc,
+                    ],
+                ]);
+
+                $customer = \Stripe\Customer::create([
+                    'source' => $token['id'],
+                    'email' => $request->email,
+                    'metadata' => [
+                        "First Name" => $request->firstName,
+                        "Last Name" => $request->lastName
+                ]]);
+                // Customer::where('id',user()->id)->update(['stripe_customer_id' => $customer['id']]);
+                $dataCustomer['stripe_customer_id'] = $customer['id'];
+
             } else {
                 $dataCustomer['gender'] = $request['gender'];
             }
