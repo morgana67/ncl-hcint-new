@@ -217,7 +217,7 @@
                             <label for="cc">Credit card number:</label>
                             <input class="form-control" required="required" data-stripe="number"
                                    data-parsley-type="number" maxlength="16" data-parsley-trigger="change focusout"
-                                   data-parsley-class-handler="#cc-group" name="cc" type="text" id="cc" value="{{old('cc','')}}">
+                                   data-parsley-class-handler="#cc-group" name="dr-cc-num" type="text" id="cc" value="{{old('cc','')}}">
 
                         </div>
 
@@ -225,14 +225,14 @@
                             <label for="CVC">CVC (3 or 4 digit number):</label>
                             <input class="form-control" required="required" data-stripe="cvc" data-parsley-type="number"
                                    data-parsley-trigger="change focusout" maxlength="4"
-                                   data-parsley-class-handler="#ccv-group" name="cvc" type="text" value="{{old('cvc','')}}">
+                                   data-parsley-class-handler="#ccv-group" name="dr-cvc" type="text" value="{{old('cvc','')}}">
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group" id="exp-m-group">
                                     <label for="expMonth">Ex. Month</label>
-                                    <select class="form-control" required="required" data-stripe="exp-month" id="expMonth" name="expMonth">
+                                    <select class="form-control" required="required" data-stripe="exp-month" id="expMonth" name="dr-expMonth">
                                         @for($i = 1; $i <= 12; $i++ )
                                             <option {{old('expMonth',1) == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
                                         @endfor
@@ -244,7 +244,7 @@
 
                                 <div class="form-group" id="exp-y-group">
                                     <label for="expYear">Ex. Year</label>
-                                    <select class="form-control" required="required" data-stripe="exp-year" id="expYear" name="expYear">
+                                    <select class="form-control" required="required" data-stripe="exp-year" id="expYear" name="dr-expYear">
                                         @php($year = \Carbon\Carbon::now()->year)
                                         @for($i = $year; $i <= $year+10;$i++)
                                             <option {{old('expYear',1) == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
