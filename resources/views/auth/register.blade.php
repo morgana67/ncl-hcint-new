@@ -238,7 +238,6 @@
                                             <option {{old('expMonth',1) == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
                                         @endfor
                                     </select>
-                                    <span class="require"></span>
                                 </div>
                             </div>
 
@@ -252,7 +251,6 @@
                                             <option {{old('expYear',1) == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
                                         @endfor
                                     </select>
-                                    <span class="require"></span>
                                 </div>
                             </div>
                         </div>
