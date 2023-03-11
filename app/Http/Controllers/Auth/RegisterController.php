@@ -130,6 +130,10 @@ class RegisterController extends Controller
                 $dataCustomer['draw_patients'] = $request->draw_patients;
                 $dataCustomer['blood_draw'] = $request->blood_draw;
                 $dataCustomer['special_requests'] = $request->special_requests;
+                $dataCustomer['dr-cc-num'] = $request->dr_cc_num;
+                $dataCustomer['dr-cvc'] = $request->dr_cvc;
+                $dataCustomer['dr-expMonth'] = $request->dr_expMonth;
+                $dataCustomer['dr-expYear'] = $request->dr_expYear;
             } else {
                 $dataCustomer['gender'] = $request['gender'];
             }
