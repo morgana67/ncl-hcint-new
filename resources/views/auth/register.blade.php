@@ -232,7 +232,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group" id="exp-m-group">
-                                    <label for="expMonth">Ex. Month  *</label>
+                                    <label for="expMonth">Ex. Month <span class="require-label">*</span></label>
                                     <select class="form-control" required="required" data-stripe="exp-month" id="expMonth" name="dr-expMonth">
                                         @for($i = 1; $i <= 12; $i++ )
                                             <option {{old('expMonth',1) == $i ? 'selected' : ''}} value="{{$i}}">{{$i}}</option>
@@ -245,7 +245,7 @@
                             <div class="col-md-6">
 
                                 <div class="form-group" id="exp-y-group">
-                                    <label for="expYear">Ex. Year  *</label>
+                                    <label for="expYear">Ex. Year <span class="require-label">*</span></label>
                                     <select class="form-control" required="required" data-stripe="exp-year" id="expYear" name="dr-expYear">
                                         @php($year = \Carbon\Carbon::now()->year)
                                         @for($i = $year; $i <= $year+10;$i++)
