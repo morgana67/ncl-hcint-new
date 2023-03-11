@@ -209,10 +209,10 @@
 
 
                     <div class="payment-info col-sm-12  fom-shad mb30">
-                        <h3>
+                        {{-- <h3>
                             <mark>3</mark>
                             Payment Information
-                        </h3>
+                        </h3> --}}
                         <div class="form-group" id="cc-group">
                             <label for="cc">Credit card number:</label>
                             <input class="form-control" required="required" data-stripe="number"
