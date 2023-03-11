@@ -207,7 +207,7 @@
 
                     {{-- Add CC info card to doctor regisatration [store CC info for providers] --}}
 
-
+                    @if(isset($is_doctor_register))
                     <div class="payment-info col-sm-12  fom-shad mb30">
                         {{-- <h3>
                             <mark>3</mark>
@@ -254,7 +254,7 @@
                             </div>
                         </div>
                     </div> 
-
+                    @endif
 
                     {{-- END: Add CC info card to doctor regisatration [store CC info for providers] --}}
 
