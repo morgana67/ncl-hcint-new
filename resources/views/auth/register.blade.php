@@ -216,9 +216,11 @@
                             <strong>NY, NJ RI, MD</strong></small>
                     </div>
                     @endif
-                    <div class="g-recaptcha" id="g-recaptcha-response" data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
+                    <div class="g-recaptcha" id="g-recaptcha-response"
+                         data-callback="enableBtn"
+                         data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
                     <div class="form-group col-sm-6 text-right">
-                        <button type="submit" class="btn btn-flat btn-primary ">SIGNUP</button>
+                        <button type="submit" id="sumbit_signup" class="btn btn-flat btn-primary " disabled>SIGNUP</button>
                     </div>
                 </div>
             </div>
@@ -251,13 +253,8 @@
         });
     </script>
     <script>
-        window.onload = function() {
-            var $recaptcha = document.querySelector('#g-recaptcha-response');
-
-            if($recaptcha) {
-                $recaptcha.setAttribute("required", "required");
-                $recaptcha.setAttribute("name", "ReCaptcha");
-            }
-        };
+        function enableBtn(){
+            document.getElementById("submit_signup").disabled = false;
+        }
     </script>
 @stop
