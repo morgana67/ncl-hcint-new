@@ -220,7 +220,7 @@
                          data-callback="enableBtn"
                          data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
                     <div class="form-group col-sm-6 text-right">
-                        <button type="submit" id="sumbit_signup" class="btn btn-flat btn-primary " disabled>SIGNUP</button>
+                        <button type="submit" id="submit_signup" class="btn btn-flat btn-primary " disabled>SIGNUP</button>
                     </div>
                 </div>
             </div>
