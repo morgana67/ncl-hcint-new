@@ -18,7 +18,7 @@
                     <div class="col-md-12">
                         @include('layouts.alert')
                     </div>
-                    <form method="POST" class="form" action="{{ !empty(request()->get('redirect')) ? route('login',['redirect' => request()->get('redirect')]) : route('login') }}">
+                    <form method="POST" class="form" action="{{ !empty(request()->get('redirect')) ? route('login',['redirect' => request()->get('redirect')]) : route('login') }}" onsubmit="check_if_capcha_is_filled">
                         @csrf
                         <div class="form-group">
                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email Address" value="{{old('email')}}" required/>
@@ -34,7 +34,10 @@
                             </div>
 
                         </div>
-                        <div class="g-recaptcha" id="g-recaptcha-response" data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
+                        <div class="g-recaptcha" id="g-recaptcha-response"
+                             data-callback="capcha_filled"
+                             data-expired-callback="capcha_expired"
+                             data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
                         <div class="form-group">
                             <button ype="submit" class="form-control w100 btn-primary">LOGIN</button>
                         </div>
@@ -54,10 +57,16 @@
     </section>
 @endsection
 <script>
-    window.addEventListener('load', () => {
-        const $recaptcha = document.querySelector('#g-recaptcha-response');
-        if ($recaptcha) {
-            $recaptcha.setAttribute('required', 'required');
-        }
-    })
+    let allowSubmit = false;
+    function capcha_filled () {
+        allowSubmit = true;
+    }
+    function capcha_expired () {
+        allowSubmit = false;
+    }
+    function check_if_capcha_is_filled (e) {
+        if(allowSubmit) return true;
+        e.preventDefault();
+        alert('Please fill in the captcha');
+    }
 </script>
