@@ -1,15 +1,5 @@
 @extends('layouts.site')
 @section('content')
-    <style>
-        #g-recaptcha-response {
-            display: block !important;
-            position: absolute;
-            margin: -78px 0 0 0 !important;
-            width: 302px !important;
-            height: 76px !important;
-            opacity: 0;
-        }
-    </style>
     <section class="box-area text-center  pt20 pb50">
         <section class="inr-bnr-blank">
             <div class="container">
@@ -45,11 +35,10 @@
 
                         </div>
                         <div class="g-recaptcha" id="g-recaptcha-response"
-                             data-callback="capcha_filled"
-                             data-expired-callback="capcha_expired"
+                             data-callback="enableBtn"
                              data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
                         <div class="form-group">
-                            <button ype="submit" class="form-control w100 btn-primary">LOGIN</button>
+                            <button id="submit_login" ype="submit" class="form-control w100 btn-primary">LOGIN</button>
                         </div>
                     </form>
                     <a href="{{route('password.request')}}" class="link pul-lft">
@@ -67,10 +56,7 @@
     </section>
 @endsection
 <script>
-    window.addEventListener('load', () => {
-        const $recaptcha = document.querySelector('#g-recaptcha-response');
-        if ($recaptcha) {
-            $recaptcha.setAttribute('required', 'required');
-        }
-    })
+    function enableBtn(){
+        document.getElementById("submit_login").disabled = false;
+    }
 </script>
