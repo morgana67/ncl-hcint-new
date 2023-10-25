@@ -18,7 +18,7 @@
                     <div class="col-md-12">
                         @include('layouts.alert')
                     </div>
-                    <form method="POST" class="form" action="{{ !empty(request()->get('redirect')) ? route('login',['redirect' => request()->get('redirect')]) : route('login') }}" onsubmit="check_if_capcha_is_filled">
+                    <form method="POST" id="loginForm" class="form" action="{{ !empty(request()->get('redirect')) ? route('login',['redirect' => request()->get('redirect')]) : route('login') }}">
                         @csrf
                         <div class="form-group">
                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email Address" value="{{old('email')}}" required/>
@@ -57,16 +57,11 @@
     </section>
 @endsection
 <script>
-    let allowSubmit = false;
-    function capcha_filled () {
-        allowSubmit = true;
-    }
-    function capcha_expired () {
-        allowSubmit = false;
-    }
-    function check_if_capcha_is_filled (e) {
-        if(allowSubmit) return true;
-        e.preventDefault();
-        alert('Please fill in the captcha');
+    window.onload = function() {
+        var recaptcha = document.forms["loginForm"]["g-recaptcha-response"];
+        recaptcha.required = true;
+        recaptcha.oninvalid = function(e) {
+            alert("Please complete the captcha");
+        }
     }
 </script>
