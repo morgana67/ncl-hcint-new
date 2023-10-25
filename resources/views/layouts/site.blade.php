@@ -34,6 +34,10 @@
 	})(window,document,'script','dataLayer','GTM-MNH9WV8');</script>
     <!-- End Google Tag Manager -->
 
+    <!-- Google reCaptcha -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- End Google reCaptcha -->
+
 </head>
 <body class="transition nav-plusminus slide-navbar slide-navbar--left">
 <!-- Google Tag Manager (noscript) -->

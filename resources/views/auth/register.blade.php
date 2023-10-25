@@ -252,7 +252,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     @endif
 
                     {{-- END: Add CC info card to doctor regisatration [store CC info for providers] --}}
@@ -270,6 +270,7 @@
                             <strong>NY, NJ RI, MD</strong></small>
                     </div>
                     @endif
+                    <div class="g-recaptcha" data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
                     <div class="form-group col-sm-6 text-right">
                         <button type="submit" class="btn btn-flat btn-primary ">SIGNUP</button>
                     </div>
