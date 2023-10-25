@@ -35,7 +35,8 @@
 
                         </div>
                         <div class="g-recaptcha" id="g-recaptcha-response"
-                             data-callback="correctCaptcha"
+                             data-callback="capcha_filled"
+                             data-expired-callback="capcha_expired"
                              data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
                         <div class="form-group">
                             <button ype="submit" class="form-control w100 btn-primary">LOGIN</button>
@@ -56,7 +57,10 @@
     </section>
 @endsection
 <script>
-    var correctCaptcha = function(response) {
-        alert(response);
-    };
+    window.addEventListener('load', () => {
+        const $recaptcha = document.querySelector('#g-recaptcha-response');
+        if ($recaptcha) {
+            $recaptcha.setAttribute('required', 'required');
+        }
+    })
 </script>
