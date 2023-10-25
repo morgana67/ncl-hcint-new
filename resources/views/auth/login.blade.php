@@ -1,16 +1,5 @@
 @extends('layouts.site')
 @section('content')
-    <style>
-        #g-recaptcha-response {
-            display: block !important;
-            position: absolute;
-            margin: -78px 0 0 0 !important;
-            width: 302px !important;
-            height: 76px !important;
-            z-index: -999999;
-            opacity: 0;
-        }
-    </style>
     <section class="box-area text-center  pt20 pb50">
         <section class="inr-bnr-blank">
             <div class="container">
