@@ -38,7 +38,7 @@
                              data-callback="enableBtn"
                              data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
                         <div class="form-group">
-                            <button id="submit_login" ype="submit" class="form-control w100 btn-primary">LOGIN</button>
+                            <button id="submit_login" ype="submit" class="form-control w100 btn-primary" disabled>LOGIN</button>
                         </div>
                     </form>
                     <a href="{{route('password.request')}}" class="link pul-lft">
