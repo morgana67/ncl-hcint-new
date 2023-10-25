@@ -74,7 +74,7 @@ class RegisterController extends Controller
             'address' => 'required|max:191',
             'zip' => 'required|max:191',
             'phone' => 'required|regex:/^[01]?[- .]?([2-9]\d{2})?[- .]?\d{3}[- .]?\d{4}$/',
-            'g-recaptcha-response' => 'required|captcha'
+
         ]);
     }
 
