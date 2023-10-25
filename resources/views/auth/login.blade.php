@@ -7,7 +7,6 @@
             margin: -78px 0 0 0 !important;
             width: 302px !important;
             height: 76px !important;
-            z-index: -999999;
             opacity: 0;
         }
     </style>
