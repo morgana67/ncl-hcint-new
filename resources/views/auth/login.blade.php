@@ -34,7 +34,7 @@
                             </div>
 
                         </div>
-                        <div class="g-recaptcha" data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
+                        <div class="g-recaptcha" id="g-recaptcha-response" data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
                         <div class="form-group">
                             <button ype="submit" class="form-control w100 btn-primary">LOGIN</button>
                         </div>
@@ -53,3 +53,13 @@
         </section>
     </section>
 @endsection
+<script>
+    window.onload = function() {
+        var $recaptcha = document.querySelector('#g-recaptcha-response');
+
+        if($recaptcha) {
+            $recaptcha.setAttribute("required", "required");
+            $recaptcha.setAttribute("name", "ReCaptcha");
+        }
+    };
+</script>
