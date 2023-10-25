@@ -56,12 +56,4 @@
         </section>
     </section>
 @endsection
-<script>
-    window.onload = function() {
-        var recaptcha = document.forms["loginForm"]["g-recaptcha-response"];
-        recaptcha.required = true;
-        recaptcha.oninvalid = function(e) {
-            alert("Please complete the captcha");
-        }
-    }
-</script>
+
