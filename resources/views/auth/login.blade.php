@@ -38,7 +38,7 @@
                              data-callback="enableBtn"
                              data-sitekey="6LeSHdAoAAAAAHxuYwYExRiNbRcjM0KYgk9bN4GJ"></div>
                         <div class="form-group">
-                            <button ype="submit" class="form-control w100 btn-primary" disabled>LOGIN</button>
+                            <button ype="submit" id="submit_login" class="form-control w100 btn-primary" disabled>LOGIN</button>
                         </div>
                     </form>
                     <a href="{{route('password.request')}}" class="link pul-lft">
@@ -57,6 +57,6 @@
 @endsection
 <script>
     function enableBtn(){
-        document.getElementById("submit_signup").disabled = false;
+        document.getElementById("submit_login").disabled = false;
     }
 </script>
