@@ -270,6 +270,9 @@
                             <strong>NY, NJ RI, MD</strong></small>
                     </div>
                     @endif
+                    <div class="g-recaptcha" id="g-recaptcha-response"
+                         data-callback="enableBtn"
+                         data-sitekey="6LeSHdAoAAAAAHxuYwYExRiNbRcjM0KYgk9bN4GJ"></div>
                     <div class="form-group col-sm-6 text-right">
                         <button type="submit" class="btn btn-flat btn-primary ">SIGNUP</button>
                     </div>
@@ -302,5 +305,10 @@
                 });
             });
         });
+    </script>
+    <script>
+        function enableBtn(){
+            document.getElementById("submit_signup").disabled = false;
+        }
     </script>
 @stop

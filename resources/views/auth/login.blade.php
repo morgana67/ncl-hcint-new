@@ -34,6 +34,9 @@
                             </div>
 
                         </div>
+                        <div class="g-recaptcha" id="g-recaptcha-response"
+                             data-callback="enableBtn"
+                             data-sitekey="6LeSHdAoAAAAAHxuYwYExRiNbRcjM0KYgk9bN4GJ"></div>
                         <div class="form-group">
                             <button ype="submit" class="form-control w100 btn-primary">LOGIN</button>
                         </div>
@@ -52,3 +55,8 @@
         </section>
     </section>
 @endsection
+<script>
+    function enableBtn(){
+        document.getElementById("submit_signup").disabled = false;
+    }
+</script>
