@@ -274,7 +274,7 @@
                          data-callback="enableBtn"
                          data-sitekey="6LeSHdAoAAAAAHxuYwYExRiNbRcjM0KYgk9bN4GJ"></div>
                     <div class="form-group col-sm-6 text-right">
-                        <button type="submit" class="btn btn-flat btn-primary ">SIGNUP</button>
+                        <button type="submit" class="btn btn-flat btn-primary " disabled>SIGNUP</button>
                     </div>
                 </div>
             </div>
