@@ -35,7 +35,7 @@
                 <span class="signingin hidden"><span class="voyager-refresh"></span> {{ __('voyager::login.loggingin') }}...</span>
                 <span class="signin">{{ __('voyager::generic.login') }}</span>
             </button>
-            <a href="{{route('admin.forgot-password.get')}}" style="color: red; margin-left: 1rem">Forgot Password</a>
+            <a href="{{route('admin.forgot-password.get')}}" style="color: red; margin-left: 1rem">Forgot Password1</a>
             </div>
         </form>
 
