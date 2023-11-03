@@ -31,7 +31,10 @@
                 </div>
             </div>
             <div style="display: flex;justify-content: flex-start;align-items: center;">
-            <button type="submit" class="btn btn-block login-button">
+                <div class="g-recaptcha" id="g-recaptcha-response"
+                     data-callback="enableBtn"
+                     data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
+            <button id="submit_login" type="submit" class="btn btn-block login-button">
                 <span class="signingin hidden"><span class="voyager-refresh"></span> {{ __('voyager::login.loggingin') }}...</span>
                 <span class="signin">{{ __('voyager::generic.login') }}</span>
             </button>
@@ -87,5 +90,10 @@
             document.getElementById('passwordGroup').classList.remove("focused");
         });
 
+    </script>
+    <script>
+        function enableBtn(){
+            document.getElementById("submit_login").disabled = false;
+        }
     </script>
 @endsection
