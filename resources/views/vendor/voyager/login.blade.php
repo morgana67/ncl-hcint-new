@@ -1,6 +1,11 @@
 @extends('voyager::auth.master')
 
 @section('content')
+    <head>
+        <!-- Google reCaptcha -->
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <!-- End Google reCaptcha -->
+    </head>
     <div class="login-container">
 
         @if(session()->has('success'))
@@ -31,11 +36,14 @@
                 </div>
             </div>
             <div style="display: flex;justify-content: flex-start;align-items: center;">
-            <button type="submit" class="btn btn-block login-button">
+                <div class="g-recaptcha" id="g-recaptcha-response"
+                     data-callback="enableBtn"
+                     data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
+            <button id="submit_login"  type="submit" class="btn btn-block login-button">
                 <span class="signingin hidden"><span class="voyager-refresh"></span> {{ __('voyager::login.loggingin') }}...</span>
                 <span class="signin">{{ __('voyager::generic.login') }}</span>
             </button>
-            <a href="{{route('admin.forgot-password.get')}}" style="color: red; margin-left: 1rem">Forgot Password1</a>
+            <a href="{{route('admin.forgot-password.get')}}" style="color: red; margin-left: 1rem">Forgot Password</a>
             </div>
         </form>
 
@@ -87,5 +95,10 @@
             document.getElementById('passwordGroup').classList.remove("focused");
         });
 
+    </script>
+    <script>
+        function enableBtn(){
+            document.getElementById("submit_login").disabled = false;
+        }
     </script>
 @endsection
