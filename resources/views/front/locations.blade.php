@@ -138,15 +138,14 @@
 @section('script')
     <script async defer src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_API_KEY')}}&libraries=places&callback=initialize"></script>
     <script>
-        function initialize() {
-            var input = document.getElementById('address');
-            var autocomplete = new google.maps.places.Autocomplete(input);
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                debugger;
-                var place = autocomplete.getPlace();
+        document.addEventListener('DOMContentLoaded', function () {
+            let input = document.getElementById('address');
+            let autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.addListener('place_changed', function () {
+                let place = autocomplete.getPlace();
                 document.getElementById('lat').value = place.geometry.location.lat();
                 document.getElementById('lng').value = place.geometry.location.lng();
             });
-        }
+        });
     </script>
 @stop
