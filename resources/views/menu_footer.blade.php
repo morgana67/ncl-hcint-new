@@ -4,7 +4,9 @@
         @if(!$menu_item->children->isEmpty())
             <ul>
                 @foreach($menu_item->children as $children)
-                    <li><a href="{{ $children->link() }}">{{ $children->title }}</a></li>
+                    @if($children->title != 'Doctor Registration')
+                        <li><a href="{{ $children->link() }}">{{ $children->title }}</a></li>
+                    @endif
                 @endforeach
             </ul>
         @endif
