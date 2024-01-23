@@ -136,9 +136,8 @@
     </section>
 @endsection
 @section('script')
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_API_KEY')}}&libraries=places&callback=initialize"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        function initialize() {
             let input = document.getElementById('address');
             let autocomplete = new google.maps.places.Autocomplete(input);
             autocomplete.addListener('place_changed', function () {
@@ -146,6 +145,19 @@
                 document.getElementById('lat').value = place.geometry.location.lat();
                 document.getElementById('lng').value = place.geometry.location.lng();
             });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Your code that relies on the DOM being fully loaded
+            // For example, you might add more event listeners or perform other actions here
         });
+
+        // Load Google Maps API script outside the DOMContentLoaded event
+        let script = document.createElement('script');
+        script.async = true;
+        script.defer = true;
+        script.src = 'https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_API_KEY')}}&libraries=places&callback=initialize';
+        document.head.appendChild(script);
     </script>
+
 @stop
