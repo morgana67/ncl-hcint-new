@@ -138,10 +138,10 @@
 @section('script')
     <script>
         function initialize() {
-            let input = document.getElementById('address');
-            let autocomplete = new google.maps.places.Autocomplete(input);
+            var input = document.getElementById('address');
+            var autocomplete = new google.maps.places.Autocomplete(input);
             autocomplete.addListener('place_changed', function () {
-                let place = autocomplete.getPlace();
+                var place = autocomplete.getPlace();
                 document.getElementById('lat').value = place.geometry.location.lat();
                 document.getElementById('lng').value = place.geometry.location.lng();
             });
@@ -153,11 +153,18 @@
         });
 
         // Load Google Maps API script outside the DOMContentLoaded event
-        let script = document.createElement('script');
+        var script = document.createElement('script');
         script.async = true;
         script.defer = true;
         script.src = 'https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_API_KEY')}}&libraries=places&callback=initialize';
+
+        script.onload = function () {
+            // This part ensures that the script has loaded before calling initialize
+            initialize();
+        };
+
         document.head.appendChild(script);
     </script>
+
 
 @stop
