@@ -172,7 +172,6 @@ class HomeController extends Controller
 
         $locations = array();
         if (!empty($search['address']) && !empty($search['activity']) && !empty($search['lat']) && !empty($search['lng'])) {
-            dd('here');
             try {
                 $date = new DateTime('now', new DateTimeZone('UTC'));
                 $dateFormat = $date->format('D, d M Y H:i:s O');
