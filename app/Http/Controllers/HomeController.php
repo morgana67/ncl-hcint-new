@@ -206,8 +206,13 @@ class HomeController extends Controller
                      $response = simplexml_load_string($response);
                      $response = json_encode($response);
                      $response = json_decode($response, TRUE);
-                     if($response['respcode'] == '200')
+                     if($response['respcode'] == '200'){
+                         dd('here');
                          $locations = $response['location'];
+
+                     } else {
+                         dd('else');
+                     }
                  }
 
                 if(count($locations) == 0 ) {
