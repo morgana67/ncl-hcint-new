@@ -165,7 +165,6 @@ class HomeController extends Controller
     }
 
     public function locations(Request $request){
-        dd($request);
         $search['address'] = $request->input('address');
         $search['activity'] = $request->input('activity');
         $search['lat'] = $request->input('lat');
