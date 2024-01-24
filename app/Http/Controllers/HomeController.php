@@ -196,19 +196,19 @@ class HomeController extends Controller
                     "x-newcentury-date: {$dateFormat}",
                     "Content-Type: text/xml",
                 ];
-                // $ch = curl_init($url);
-                // curl_setopt($ch, CURLOPT_POST, 1);
-                // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                // curl_setopt($ch, CURLOPT_POSTFIELDS, "{$xmlRequest}");
-                // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                // $response = curl_exec($ch);
-                // if(empty(json_decode($response, TRUE))) {
-                //     $response = simplexml_load_string($response);
-                //     $response = json_encode($response);
-                //     $response = json_decode($response, TRUE);
-                //     if($response['respcode'] == '200')
-                //         $locations = $response['location'];
-                // }
+                 $ch = curl_init($url);
+                 curl_setopt($ch, CURLOPT_POST, 1);
+                 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                 curl_setopt($ch, CURLOPT_POSTFIELDS, "{$xmlRequest}");
+                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                 $response = curl_exec($ch);
+                 if(empty(json_decode($response, TRUE))) {
+                     $response = simplexml_load_string($response);
+                     $response = json_encode($response);
+                     $response = json_decode($response, TRUE);
+                     if($response['respcode'] == '200')
+                         $locations = $response['location'];
+                 }
 
                 if(count($locations) == 0 ) {
                     return view('front.locations')->with(['locations' => []])->withErrors(['No locations found']);
