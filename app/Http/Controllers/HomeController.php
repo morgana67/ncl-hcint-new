@@ -242,18 +242,18 @@ class HomeController extends Controller
             "x-newcentury-date: {$dateFormat}",
             "Content-Type: text/xml",
         ];
-        // $ch = curl_init($url);
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        // $response = curl_exec($ch);
-        // $response = simplexml_load_string($response);
-        // $response = json_encode($response);
-        // $response = json_decode($response, TRUE);
-        // if($response['respcode'] == '200') {
-        //     $location = $response['location'];
-        // } else {
-        //     abort(404,'No location found');
-        // }
+         $ch = curl_init($url);
+         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+         $response = curl_exec($ch);
+         $response = simplexml_load_string($response);
+         $response = json_encode($response);
+         $response = json_decode($response, TRUE);
+         if($response['respcode'] == '200') {
+             $location = $response['location'];
+         } else {
+             abort(404,'No location found');
+         }
         return view('front.location', compact('location'));
     }
 }
