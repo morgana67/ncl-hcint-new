@@ -36,7 +36,6 @@ class CustomerController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContro
 
     public function show(Request $request, $id)
     {
-        dd('here');
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
