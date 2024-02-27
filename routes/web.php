@@ -50,7 +50,7 @@ Route::get('/results','PwnhealthController@status')->name('webhooks_status');
 
 
 Auth::routes();
-//Route::get('/doctor-registration','Auth\RegisterController@doctorRegister')->name('doctorRegister');
+Route::get('/doctor-registration','Auth\RegisterController@doctorRegister')->name('doctorRegister');
 
 
 Route::post('/post-register','Auth\RegisterController@postRegister')->name('postRegister');
