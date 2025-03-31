@@ -97,6 +97,17 @@ class RegisterController extends Controller
             'address' => 'required|max:191',
             'zip' => 'required|max:191',
             'phone' => 'required|regex:/^[01]?[- .]?([2-9]\d{2})?[- .]?\d{3}[- .]?\d{4}$/',
+            'g-recaptcha-response' => [
+                'required',
+                function($a, $v, $fail) use ($request)
+                {
+                    $validate_captcha = validateGCaptcha($request->{'g-recaptcha-response'});
+                    if(!$validate_captcha)
+                    {
+                        $fail('reCaptcha Fail');
+                    }
+                }
+            ]
         ];
         if(isset($request->is_doctor_register)) {
             $validation['physician_name'] = 'required|string|max:191';

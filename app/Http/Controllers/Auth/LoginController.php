@@ -59,6 +59,17 @@ class LoginController extends Controller
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required|min:6',
+            'g-recaptcha-response' => [
+                'required',
+                function($a, $v, $fail) use ($request)
+                {
+                    $validate_captcha = validateGCaptcha($request->{'g-recaptcha-response'});
+                    if(!$validate_captcha)
+                    {
+                        $fail('reCaptcha Fail');
+                    }
+                }
+            ]
 
         ]);
     }

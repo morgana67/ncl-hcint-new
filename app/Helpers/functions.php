@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -138,5 +139,29 @@ if (!function_exists('HmacSHA1Encrypt')) {
 if (!function_exists('getProductById')) {
     function getProductById($id){
         return \App\Models\Product::find($id);
+    }
+}
+
+if(!function_exists('validateGCaptcha'))
+{
+    function validateGCaptcha($token)
+    {
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+        $response = Http::asForm()->post($url, [
+            'secret' => env('GOOGLE_CAPTCHA_SECRET', ''),
+            'response' => $token
+        ]);
+        if($response->failed())
+        {
+            return false;
+        }
+
+        $body = $response->json();
+        if(isset($body['success']) && $body['success'])
+        {
+            return true;
+        }
+
+        return false;
     }
 }
