@@ -34,7 +34,7 @@
                             </div>
 
                         </div>
-                        <div class="g-recaptcha" id="g-recaptcha-response"
+                        <div class="g-recaptcha"
                              data-callback="enableBtn"
                              data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
                         <div class="form-group">

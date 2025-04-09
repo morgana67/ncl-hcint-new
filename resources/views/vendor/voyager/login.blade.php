@@ -35,7 +35,7 @@
                     <input type="checkbox" name="remember" id="remember" value="1"><label for="remember" class="remember-me-text">{{ __('voyager::generic.remember_me') }}</label>
                 </div>
             </div>
-            <div class="g-recaptcha" id="g-recaptcha-response"
+            <div class="g-recaptcha"
                  data-callback="enableBtn"
                  data-sitekey="6LcRB8goAAAAAALXWDBXS2PYaCZpH8TnYgRHiHcJ"></div>
             <div style="display: flex;justify-content: flex-start;align-items: center;">
